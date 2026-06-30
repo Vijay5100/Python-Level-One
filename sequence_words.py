@@ -3,9 +3,9 @@ import os
 import time 
 
 print("""Difficulty:
-1. Easy - You will get 4 numbers 
-2. Medium - You will get 6 numbers 
-3. Hard - You will get 8 numbers
+1. Easy - You will get 4 words 
+2. Medium - You will get 6 words 
+3. Hard - You will get 8 words
 """)
 
 word = [
