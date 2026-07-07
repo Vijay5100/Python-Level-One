@@ -7,13 +7,14 @@ options = """Options:
 5. Edit a Todo 
 6. Delete a Todo  
 7. Display Summary of all Todos
-8. Exit"""
+8. Display Pending Todos
+9. Exit"""
 todos = [] 
 tid = 1 
 while True:
     print(application_name)
     print(options)
-    choice = int(input("Enter your choice (1-7): "))
+    choice = int(input("Enter your choice (1-9): "))
     print("-"*15)
     match choice:
         case 1:
@@ -25,6 +26,7 @@ while True:
                 "title":title,
                 "description":description,
                 "status":False, # default considering it as pending
+                "priority":"normal"
             }
             todos.append(todo)
             tid += 1 
@@ -32,8 +34,8 @@ while True:
         case 2:
             print("Displaying All The Todos:")
             for t in todos:
-                print(f"ID: {t["id"]}")
-                print(f"Title: {t["title"]}")
+                print(f"ID: {t['id']}")
+                print(f"Title: {t['title']}")
                 print()
         case 3:
             print("Displaying single Todo: ")
@@ -56,9 +58,9 @@ while True:
                     status = "pending"
                 """
                 status = "completed" if todo["status"] else "pending"
-                print(f"ID: {todo["id"]}")
-                print(f"Title: {todo["title"]}")
-                print(f"Description: {todo["description"]}")
+                print(f"ID: {todo['id']}")
+                print(f"Title: {todo['title']}")
+                print(f"Description: {todo['description']}")
                 print(f"Status: {status}")
         case 4:
             print("Marking Todo as Completed: ")
@@ -87,7 +89,7 @@ while True:
             if todo == None:
                 print("Not found")
             else:
-                print("Options:\n1.Title\n2.Description\n3.Reset Status")
+                print("Options:\n1.Title\n2.Description\n3.Reset Status\n4.Change Priority")
                 edit_choice = int(input("Enter your choice: "))
                 match edit_choice:
                     case 1:
@@ -101,6 +103,10 @@ while True:
                     case 3:
                         todo["status"] = False 
                         print("Status reset succesfully")
+                    case 4:
+                        priority = input("New Priority: ")
+                        todo["priority"] = priority
+                        print("Priority updated succesfully")
                     case _ :
                         print("Invalid input. Try again.")
         case 6:
@@ -131,6 +137,18 @@ while True:
             print(f"{pendingcount} Todos Pending")
             print(f"{totalcount} Total Todos")
         case 8:
+            print("Displaying all Pending Todos")
+            pending_todos = []
+            for todo in todos:
+                if todo["status"] == False:
+                    pending_todos.append(todo)
+            for todo in pending_todos:
+                print(f"ID: {todo['id']}")
+                print(f"Title: {todo['title']}")
+                print(f"Description: {todo['description']}")
+                print(f"Priority: {todo['priority']}")
+                print()
+        case 9:
             print("Exiting...")
             break 
         case _ :
