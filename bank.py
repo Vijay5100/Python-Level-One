@@ -202,7 +202,7 @@ while True:
                 }
                 transactions.append(transaction)
                 print("Money transferred successfully.")
-                print(f"To Account New Balance: {to_account['balance']}")
+                print(f"From Account New Balance: {from_account['balance']}")
         case 5:
             print("Displaying Account: ")
             account_number = int(input("Enter the Account Number: "))
@@ -251,48 +251,21 @@ while True:
             else:
                 rows = []
                 for transaction in transactions:
-                    if transaction["type"] == "deposit":
-                        if transaction["account_number"] == account_number:
-                            rows.append([
-                                transaction["transaction_id"],
-                                transaction["type"],
-                                transaction["from_account"],
-                                transaction["to_account"],
-                                transaction["amount"],
-                                transaction["date"],
-                                transaction["time"]
-                            ])
-                    elif transaction["type"] == "withdraw":
-                        if transaction["account_number"] == account_number:
-                            rows.append([
-                                transaction["transaction_id"],
-                                transaction["type"],
-                                transaction["from_account"],
-                                transaction["to_account"],
-                                transaction["amount"],
-                                transaction["date"],
-                                transaction["time"]
-                            ])
-
-                    elif transaction["type"] == "transfer":
-                        if (
-                            transaction["from_account"] == account_number
-                            or transaction["to_account"] == account_number
-                        ):
-                            rows.append([
-                                transaction["transaction_id"],
-                                transaction["type"],
-                                transaction["from_account"],
-                                transaction["to_account"],
-                                transaction["amount"],
-                                transaction["date"],
-                                transaction["time"]
-                            ])
+                    if transaction["from_account"] == account_number or transaction["to_account"] == account_number:
+                        rows.append([
+                            transaction["transaction_id"],
+                            transaction["type"],
+                            transaction["from_account"] if transaction["from_account"] is not None else "-",
+                            transaction["to_account"] if transaction["to_account"] is not None else "-",
+                            transaction["amount"],
+                            transaction["date"],
+                            transaction["time"]
+                        ])
                 headers = [
                     "Transaction ID",
                     "Type",
-                    "From Account",
-                    "To Account",
+                    "From Account Number",
+                    "To Account Number",
                     "Amount",
                     "Date",
                     "Time"
@@ -323,7 +296,7 @@ while True:
         case _ : 
             print("Invalid Choice, Try again.")
     if choice != 8:
-        continue_choice = input("\nDo you want to continue? (yes/no): ")
-        if continue_choice.lower() != "yes":
+        continue_choice = input("\nDo you want to continue? (y/n): ")
+        if continue_choice.lower() != "y":
             print("Exiting...")
             break
