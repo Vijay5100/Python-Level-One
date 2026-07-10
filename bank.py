@@ -30,6 +30,8 @@ Amount:
 from tabulate import tabulate
 from datetime import datetime
 from zoneinfo import ZoneInfo
+import os
+import time
 import random
 account_counter = 1
 application_name = "Bank Simulator"
@@ -219,11 +221,11 @@ while True:
             else:
                 rows = [
                     [
-                        account["account_number"],
-                        account["holder_name"],
-                        account["account_type"],
-                        account["age"],
-                        account["balance"]
+                        selected_account["account_number"],
+                        selected_account["holder_name"],
+                        selected_account["account_type"],
+                        selected_account["age"],
+                        selected_account["balance"]
                     ]
                 ]
                 headers = [
@@ -300,3 +302,5 @@ while True:
         if continue_choice.lower() != "y":
             print("Exiting...")
             break
+        time.sleep(1)
+        os.system("clear")
